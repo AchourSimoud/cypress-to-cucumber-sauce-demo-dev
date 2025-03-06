@@ -19,22 +19,19 @@ pipeline {
     }
     post {
         always {
-            cucumber(
-                jsonReportDirectory: 'cypress/cucumber-json',
-                fileIncludePattern: '*.cucumber.json.json',
-                buildStatus: 'UNSTABLE',
+        cucumber buildStatus: 'UNSTABLE',
                 failedFeaturesNumber: 1,
                 failedScenariosNumber: 1,
                 skippedStepsNumber: 1,
                 failedStepsNumber: 1,
                 classifications: [
-                    [key: 'Commit', value: '<a href="${GERRIT_CHANGE_URL}">${GERRIT_PATCHSET_REVISION}</a>'],
-                    [key: 'Submitter', value: '${GERRIT_PATCHSET_UPLOADER_NAME}']
+                        [key: 'Commit', value: '<a href="${GERRIT_CHANGE_URL}">${GERRIT_PATCHSET_REVISION}</a>'],
+                        [key: 'Submitter', value: '${GERRIT_PATCHSET_UPLOADER_NAME}']
                 ],
                 reportTitle: 'My report',
+                fileIncludePattern: '**/*.cucumber.json',
                 sortingMethod: 'ALPHABETICAL',
                 trendsLimit: 100
-            )
-        }
+         }
     }
 }
